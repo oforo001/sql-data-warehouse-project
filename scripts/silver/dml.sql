@@ -1,6 +1,14 @@
+use DataWarehouse
+
 /* 
    Load the latest unique customer records from bronze to silver layer,
    removing duplicates by cst_id and standardizing key fields (names, gender, marital status).
+*/
+
+/*
+==========================
+Insertion into silver.crm_cust_info
+==========================
 */
 
 INSERT INTO silver.crm_cust_info (
@@ -33,3 +41,40 @@ FROM(
 	ROW_NUMBER() OVER (PARTITION BY cst_id ORDER BY cst_create_date DESC) AS flag_last
 	FROM bronze.crm_cust_info)
 AS t WHERE t.flag_last = 1 AND t.cst_id IS NOT NULL
+
+/*
+==========================
+Insertion into silver.crm_prd_info
+==========================
+*/
+INSERT INTO silver.crm_prd_info (
+prd_id,
+cat_id,
+prd_key,
+prd_nm,
+prd_cost,
+prd_line,
+prd_start_dt,
+prd_end_dt
+)
+
+SELECT
+prd_id,
+REPLACE(SUBSTRING(prd_key, 1, 5), '-', '_') AS cat_id,
+SUBSTRING(prd_key, 7, LEN(prd_key)) as prd_key, -- for joining with sls_prd_key from bronze.crm_sales_details
+TRIM(prd_nm) AS prd_nm,
+ISNULL(prd_cost, 0) AS prd_cost,
+CASE TRIM(UPPER(prd_line))
+	WHEN 'M' THEN 'Mountain'
+	WHEN 'R' THEN 'Road'
+	WHEN 'S' THEN 'Other Sales'
+	WHEN 'T' THEN 'Touring'
+	ELSE 'n/a'
+END AS prd_line,
+CAST(prd_start_dt AS DATE) AS prd_start_date,
+CAST(DATEADD(DAY, -1, LEAD(prd_start_dt) OVER (PARTITION BY prd_key ORDER BY prd_start_dt)) AS DATE) AS prd_end_dt
+FROM bronze.crm_prd_info
+
+select * from silver.crm_prd_info
+WHERE prd_cost < 0 OR prd_cost IS NULL
+
