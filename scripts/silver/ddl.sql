@@ -26,6 +26,7 @@ IF OBJECT_ID('silver.crm_prd_info', 'U') IS NOT NULL
 CREATE TABLE silver.crm_prd_info(
 prd_id INT,
 prd_key NVARCHAR(100),
+cat_id NVARCHAR(50), -- new column derived from silver DML
 prd_nm NVARCHAR(100),
 prd_cost DECIMAL(10, 2),
 prd_line NVARCHAR(50),
