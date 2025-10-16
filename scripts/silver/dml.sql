@@ -78,3 +78,25 @@ FROM bronze.crm_prd_info
 select * from silver.crm_prd_info
 WHERE prd_cost < 0 OR prd_cost IS NULL
 
+/*
+==========================
+TODO: Insertion into silver.crm_sales_details
+==========================
+*/
+
+SELECT
+TRIM(sls_ord_num) AS sls_ord_num,
+sls_prd_key, -- key to silver.crm_prd_info
+sls_cust_id, -- key to silver.crm_cust_info
+CASE
+    WHEN sls_order_dt = 0 OR LEN(sls_order_dt) != 8 THEN NULL
+	ELSE CAST(CAST(sls_order_dt AS VARCHAR) AS DATE)
+END AS sls_order_dt,
+sls_ship_dt,
+sls_due_dt,
+sls_quantity,
+sls_price
+FROM bronze.crm_sales_details;
+
+
+
