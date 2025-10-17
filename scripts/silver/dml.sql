@@ -1,4 +1,3 @@
-use DataWarehouse
 
 /* 
    Load the latest unique customer records from bronze to silver layer,
@@ -75,14 +74,22 @@ CAST(prd_start_dt AS DATE) AS prd_start_date,
 CAST(DATEADD(DAY, -1, LEAD(prd_start_dt) OVER (PARTITION BY prd_key ORDER BY prd_start_dt)) AS DATE) AS prd_end_dt
 FROM bronze.crm_prd_info
 
-select * from silver.crm_prd_info
-WHERE prd_cost < 0 OR prd_cost IS NULL
-
 /*
 ==========================
-TODO: Insertion into silver.crm_sales_details
+Insertion into silver.crm_sales_details
 ==========================
 */
+
+INSERT INTO silver.crm_sales_details(
+sls_ord_num,
+sls_prd_key,
+sls_cust_id,
+sls_order_dt,
+sls_ship_dt,
+sls_due_dt,
+sls_sales,
+sls_quantity,
+sls_price)
 
 SELECT
 TRIM(sls_ord_num) AS sls_ord_num,
@@ -92,11 +99,23 @@ CASE
     WHEN sls_order_dt = 0 OR LEN(sls_order_dt) != 8 THEN NULL
 	ELSE CAST(CAST(sls_order_dt AS VARCHAR) AS DATE)
 END AS sls_order_dt,
-sls_ship_dt,
-sls_due_dt,
+CASE
+	WHEN sls_ship_dt = 0 OR LEN(sls_ship_dt) <> 8 THEN NULL
+	ELSE CAST(CAST(sls_ship_dt AS VARCHAR) AS DATE)
+END AS sls_ship_dt,
+CASE
+	WHEN sls_due_dt = 0 OR LEN(sls_due_dt) <> 8 THEN NULL
+	ELSE CAST(CAST(sls_due_dt AS VARCHAR) AS DATE)
+END AS sls_due_dt,
+CASE 
+	WHEN sls_sales <= 0 OR sls_sales IS NULL THEN CAST(sls_price AS DECIMAL(10, 2)) / NULLIF(sls_quantity, 0)
+	ELSE sls_sales
+END AS sls_sales,
 sls_quantity,
-sls_price
-FROM bronze.crm_sales_details;
-
-
+CASE
+	WHEN sls_price IS NULL THEN CAST(sls_sales AS DECIMAL(10, 2)) * NULLIF(sls_quantity, 0)
+	WHEN sls_price < 0 THEN (sls_price * -1)
+	ELSE sls_price
+END AS sls_price
+FROM bronze.crm_sales_details
 
