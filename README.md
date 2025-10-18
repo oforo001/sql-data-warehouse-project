@@ -1,4 +1,6 @@
-# Data Warehouse amd Analytical Project
+# Data Warehouse and Analytical Project
+
+
 
 Welcome to my **Data Warehouse and Analytical Project** repository!
 ---
