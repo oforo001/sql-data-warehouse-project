@@ -119,3 +119,18 @@ CASE
 END AS sls_price
 FROM bronze.crm_sales_details
 
+/*
+==========================
+Insertion into silver.erp_cust_az12
+==========================
+*/
+--TODO: Add more checks
+SELECT 
+CASE 
+	WHEN cid LIKE 'NAS%' THEN SUBSTRING(cid, 4, LEN(cid))
+	ELSE cid
+END AS cid,
+bdate,
+gen
+FROM bronze.erp_cust_az12;
+
