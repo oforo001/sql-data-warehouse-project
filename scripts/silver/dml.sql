@@ -147,3 +147,25 @@ CASE
 END AS gen
 FROM bronze.erp_cust_az12;
 
+/*
+==========================
+Insertion into silver.erp_loc_a101
+==========================
+*/
+
+INSERT INTO silver.erp_loc_a101(
+cid,
+ctry
+)
+
+SELECT 
+REPLACE(cid, '-', '') AS cid,
+CASE	
+	WHEN TRIM(UPPER(ctry)) = 'DE' THEN 'Germany'
+	WHEN TRIM(UPPER(ctry)) IN ('US', 'USA') THEN 'United States'
+	WHEN TRIM(ctry) = '' OR ctry IS NULL THEN 'n/a'
+	ELSE TRIM(ctry)
+END AS ctry
+FROM bronze.erp_loc_a101;
+
+
