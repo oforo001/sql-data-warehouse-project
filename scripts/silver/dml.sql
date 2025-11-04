@@ -124,13 +124,26 @@ FROM bronze.crm_sales_details
 Insertion into silver.erp_cust_az12
 ==========================
 */
---TODO: Add more checks
+
+INSERT INTO silver.erp_cust_az12(
+cid,
+bdate,
+gen
+)
+
 SELECT 
 CASE 
 	WHEN cid LIKE 'NAS%' THEN SUBSTRING(cid, 4, LEN(cid))
 	ELSE cid
 END AS cid,
-bdate,
-gen
+CASE 
+	WHEN bdate > GETDATE() THEN NULL
+	ELSE bdate
+END AS bdate,
+CASE
+	WHEN TRIM(UPPER(gen)) IN ('F', 'FEMALE') THEN 'Female'
+	WHEN TRIM(UPPER(gen)) IN ('M', 'MALE') THEN 'Male'
+	ELSE 'n/a'
+END AS gen
 FROM bronze.erp_cust_az12;
 
