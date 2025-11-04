@@ -122,26 +122,24 @@ Test Module for silver.erp_cust_az12
 --Test checks if incorect 'cid' are found
 --Expected output: No output
 SELECT * 
-FROM bronze.erp_cust_az12
+FROM silver.erp_cust_az12
 WHERE cid LIKE 'NAS%'
 
 
---Detect records with invalid birthdates (too old or in the future)
---Expected output: Flag is '0'
-SELECT 
-    CASE 
-        WHEN bdate < '1925-01-01' THEN 1
-        WHEN bdate > GETDATE() THEN 2
-        ELSE 0
-    END AS flag,
-    COUNT(*) AS cnt
-FROM bronze.erp_cust_az12
-GROUP BY 
-    CASE 
-        WHEN bdate < '1925-01-01' THEN 1
-        WHEN bdate > GETDATE() THEN 2
-        ELSE 0
-    END;
+--Test case for incorrect data enties
+-- Expected output: No output
+SELECT bdate
+FROM silver.erp_cust_az12
+WHERE bdate > GETDATE();
+
+
+--Test case for incorrect gen data entries 
+-- Expected output: No output
+SELECT DISTINCT gen
+from silver.erp_cust_az12
+WHERE gen NOT IN('Male', 'Female', 'n/a')
+
+
 
 
 
