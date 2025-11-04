@@ -139,6 +139,21 @@ SELECT DISTINCT gen
 from silver.erp_cust_az12
 WHERE gen NOT IN('Male', 'Female', 'n/a')
 
+/*
+Test Module for silver.erp_loc_a101
+*/
+
+--Test checks if incorect cntry are found
+--Expected output: Germany, United States, Canada, Australia, France, United Kingdom, n/a.
+SELECT DISTINCT ctry AS old_ctry,
+CASE	
+	WHEN TRIM(UPPER(ctry)) = 'DE' THEN 'Germany'
+	WHEN TRIM(UPPER(ctry)) IN ('US', 'USA') THEN 'United States'
+	WHEN TRIM(ctry) = '' OR ctry IS NULL THEN 'n/a'
+	ELSE TRIM(ctry)
+END AS ctry
+FROM silver.erp_loc_a101;
+
 
 
 
