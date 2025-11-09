@@ -54,8 +54,8 @@ The warehouse uses a **Star Schema** consisting of fact and dimension tables opt
 [<img src="https://github.com/user-attachments/assets/ca62bbfb-edd8-4cbc-9199-1ae707159322" width="950" />](https://github.com/user-attachments/assets/ca62bbfb-edd8-4cbc-9199-1ae707159322)
 
 ### Main Tables
-- **FactSales** — Central fact table storing transaction data.
-- **DimCustomer**, **DimProduct**, **DimDate** -  Supporting dimension tables providing context.
+- **FactSales** - Central fact table storing transaction data.
+- **Dim_Customer**, **Dim_Product** -  Supporting dimension tables providing context.
 
 ---
 
