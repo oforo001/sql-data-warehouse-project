@@ -23,7 +23,7 @@ It provides a clean data foundation for **analytical reporting** and **business 
 
 The project adopts the **Medallion Architecture**, which organizes data into three refinement layers:
 
-[<img src="https://github.com/user-attachments/assets/880f0ded-6f18-4dbb-9a4a-5bfb63df3b6a" width="800" />](https://github.com/user-attachments/assets/880f0ded-6f18-4dbb-9a4a-5bfb63df3b6a)
+[<img src="https://github.com/user-attachments/assets/880f0ded-6f18-4dbb-9a4a-5bfb63df3b6a" width="950" />](https://github.com/user-attachments/assets/880f0ded-6f18-4dbb-9a4a-5bfb63df3b6a)
 
 ### Layer Descriptions
 - **Bronze Layer:**  
@@ -44,7 +44,7 @@ The project adopts the **Medallion Architecture**, which organizes data into thr
 Data is ingested from multiple CSV files into SQL Server using ETL pipelines.  
 The flow of data is illustrated below:
 
-[<img src="https://github.com/user-attachments/assets/009c84a0-73fc-4d95-8045-0d9ca758220d" width="800" />](https://github.com/user-attachments/assets/009c84a0-73fc-4d95-8045-0d9ca758220d)
+[<img src="https://github.com/user-attachments/assets/009c84a0-73fc-4d95-8045-0d9ca758220d" width="950" />](https://github.com/user-attachments/assets/009c84a0-73fc-4d95-8045-0d9ca758220d)
 
 ---
 
@@ -52,7 +52,7 @@ The flow of data is illustrated below:
 
 The warehouse uses a **Star Schema** consisting of fact and dimension tables optimized for analytical queries.
 
-[<img src="https://github.com/user-attachments/assets/ca62bbfb-edd8-4cbc-9199-1ae707159322" width="800" />](https://github.com/user-attachments/assets/ca62bbfb-edd8-4cbc-9199-1ae707159322)
+[<img src="https://github.com/user-attachments/assets/ca62bbfb-edd8-4cbc-9199-1ae707159322" width="950" />](https://github.com/user-attachments/assets/ca62bbfb-edd8-4cbc-9199-1ae707159322)
 
 ### Main Tables
 - **FactSales** — Central fact table storing transaction data.
@@ -102,6 +102,4 @@ Data from the Gold layer is visualized using **Power BI dashboards**, enabling i
 
 **Oleksii Forostianov**  
 
-
 ---
-
