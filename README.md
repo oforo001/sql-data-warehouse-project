@@ -1,7 +1,7 @@
 # Data Warehouse and Analytics Project
 
 Welcome to the **Data Warehouse and Analytics Project** repository.  
-This project presents an end-to-end **data warehousing and analytics solution** — from building the data warehouse to generating actionable insights.  
+This project presents an end-to-end **data warehousing and analytics solution** - from building the data warehouse to generating actionable insights.  
 It is designed as a **portfolio project**, demonstrating industry-standard practices in **data engineering, modeling, and analytics**.
 
 ---
@@ -9,19 +9,18 @@ It is designed as a **portfolio project**, demonstrating industry-standard pract
 ##  1. Project Overview
 
 This project aims to design, build, and deploy a **modern data warehouse** that consolidates sales and operational data from multiple sources.  
-It provides a clean data foundation for **analytical reporting** and **business intelligence** using SQL Server and Power BI.
+It provides a clean data foundation for **analytical reporting** and **business intelligence** using SQL Server.
 
 ### Key Components
-- **Data Architecture** — Designed using the Medallion Architecture (Bronze, Silver, Gold layers).
-- **ETL Pipelines** — Automated extraction, transformation, and loading of data into SQL Server.
-- **Data Modeling** — Fact and dimension tables designed for performance and analytical flexibility.
-- **Analytics & Reporting** — Power BI dashboards and SQL queries for insights.
+- **Data Architecture** - Designed using the Medallion Architecture (Bronze, Silver, Gold layers).
+- **ETL Pipelines** - Extraction, transformation, and loading of data into SQL Server from local csv sources.
+- **Data Modeling** - Fact and dimension tables designed for performance and analytical flexibility.
 
 ---
 
 ##  2. Data Architecture
 
-The project adopts the **Medallion Architecture**, which organizes data into three refinement layers:
+The project adopts the **Medallion Architecture**, which organizes data into three refinement layers with it's specifications:
 
 [<img src="https://github.com/user-attachments/assets/880f0ded-6f18-4dbb-9a4a-5bfb63df3b6a" width="950" />](https://github.com/user-attachments/assets/880f0ded-6f18-4dbb-9a4a-5bfb63df3b6a)
 
@@ -56,33 +55,38 @@ The warehouse uses a **Star Schema** consisting of fact and dimension tables opt
 
 ### Main Tables
 - **FactSales** — Central fact table storing transaction data.
-- **DimCustomer**, **DimProduct**, **DimDate**, **DimRegion** — Supporting dimension tables providing context.
+- **DimCustomer**, **DimProduct**, **DimDate** -  Supporting dimension tables providing context.
 
 ---
 
 ##  5. ETL Process
 
-1. **Extract** — Load CSV files from source folders into staging tables.  
-2. **Transform** — Clean, validate, and enrich data using SQL and stored procedures.  
-3. **Load** — Move cleansed data into Silver and Gold layer tables.  
-
-Automation is handled via **scheduled jobs** to maintain consistency.
+1. **Extract** - Load CSV files from source folders into staging tables.  
+2. **Transform** - Clean, validate, and enrich data using SQL and stored procedures.  
+3. **Load** - Move cleansed data into Silver and Gold layer tables.  
 
 ---
 
 ##  6. Analytics and Reporting
 
-Data from the Gold layer is visualized using **Power BI dashboards**, enabling insights such as:
-- Total revenue and profit trends
-- Top-performing products and regions
-- Customer acquisition patterns
-- Sales performance over time
+Data from the **Gold layer** is prepared for visualization in **Power BI** or any other BI tool.  
+It enables retrieval of key business insights, such as:
+
+- **Revenue and Profit Analysis** - Assess overall financial performance and identify profitability trends.  
+- **Product Performance** - Determine which products drive the most sales and which underperform.  
+- **Regional Insights** - Examine sales distribution across different geographic regions.  
+- **Customer Behavior** - Explore customer acquisition patterns, purchasing frequency, and retention trends.  
+- **Sales Trend Analysis** - Identify seasonal demand patterns and forecast future sales.  
+
+These insights can be visualized through interactive dashboards to support data-driven business decisions.
+
+
 
 ---
 
 ##  7. Documentation
 
-- **Tech Stack:** SQL Server, Power BI, SSMS, Azure Data Studio  
+- **Tech Stack:** SQL Server 
 - **Architecture:** Medallion (Bronze, Silver, Gold)  
 - **Modeling Approach:** Star Schema  
 - **Data Quality:** Validation and standardization at the Silver layer  
